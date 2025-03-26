@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ElectroSphereProj</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ElectroSphereProj.styles.css" asp-append-version="true" />
+    <link rel="icon" href="https://yt3.ggpht.com/a/AGF-l78km1YyNXmF0r3-0CycCA0HLA_i6zYn_8NZEg=s900-c-k-c0xffffffff-no-rj-mo" type="image/gif" sizes="16x16">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
+</head>
+<body>
+   <header>
+        <section>
+            <!-- MAIN CONTAINER -->
+            <div id="container">
+                <!-- SHOP NAME -->
+                <div id="shopName"><a href="index.html"> <b>Electro</b>Sphere </a></div>
+                    <!-- COLLCETIONS ON WEBSITE -->
+                    <div id="collection">
+                        <div id="clothing"><a href="clothing.html"> MOBILES </a></div>
+                        <div id="accessories"><a href="accessories.html"> TVs </a></div>
+                    </div>
+                    <!-- SEARCH SECTION -->
+                    <div id="search">
+                        <i class="fas fa-search search"></i>
+                        <input type="text" id="input" name="searchBox" placeholder="Search for Clothing and Accessories">
+                    </div>
+                    <!-- USER SECTION (CART AND USER ICON) -->
+                    <div id="user">
+                        <a href="cart.html"> <i class="fas fa-shopping-cart addedToCart"><div id="badge"> 0 </div></i></a>
+                        <a href="#"> <i class="fas fa-user-circle userIcon"></i> </a>
+                    </div>
+            </div>
+
+        </section>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

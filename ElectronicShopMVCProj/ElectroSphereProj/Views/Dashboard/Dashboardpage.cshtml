@@ -1,0 +1,114 @@
+@{
+     Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="http://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+<div id="2" class="mb-2">
+    <section>
+            <div id="containerSlider">
+                <div id="slidingImage"> <img src="~/images/img1.jpg" alt="image1"> </div>
+                <div id="slidingImage"> <img src="~/images/img2.jpg" alt="image2"> </div>
+                <div id="slidingImage"> <img src="~/images/img3.jpg" alt="image3"> </div>
+                
+            </div>
+    </section>
+</div>
+<script>
+        $(document).ready(function()
+        {
+        $('#containerSlider').slick({
+            dots: true,
+            infinite: true,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 2000,
+            });
+        });
+</script>
+<div>
+    <div class="accessories-carousel position-relative">
+            <button class="carousel-nav-btn carousel-nav-btn-prev">&lt;</button>
+            <div class="accessories-wrapper">
+                <div class="accessory-item card">
+                    <img src="https://assets.myntassets.com/h_1440,q_100,w_1080/v1/assets/images/10122083/2019/6/24/e533a691-3908-41b0-8307-1928a37d4ec41561362162650-Samsung-Galaxy-Fit-4801561362161527-1.jpg" class="card-img-top" alt="Apple Smart Watch">
+                    <div class="card-body">
+                        <h5 class="card-title">Unisex Silver-Toned Series 3 Smart Watch</h5>
+                        <p class="card-text">Apple</p>
+                        <p class="card-text">Rs 31999</p>
+                        <a href="#" class="btn btn-primary">Buy Now</a>
+                    </div>
+                </div>
+                <div class="accessory-item card">
+                    <img src="https://assets.myntassets.com/h_1440,q_100,w_1080/v1/assets/images/10122083/2019/6/24/e533a691-3908-41b0-8307-1928a37d4ec41561362162650-Samsung-Galaxy-Fit-4801561362161527-1.jpg" class="card-img-top" alt="Fastrack Smart Band">
+                    <div class="card-body">
+                        <h5 class="card-title">Unisex Black & Green Reflex 2.0 Smart Band</h5>
+                        <p class="card-text">Fastrack</p>
+                        <p class="card-text">Rs 1999</p>
+                        <a href="#" class="btn btn-primary">Buy Now</a>
+                    </div>
+                </div>
+                <div class="accessory-item card">
+                    <img src="https://assets.myntassets.com/h_1440,q_100,w_1080/v1/assets/images/10122083/2019/6/24/e533a691-3908-41b0-8307-1928a37d4ec41561362162650-Samsung-Galaxy-Fit-4801561362161527-1.jpg" class="card-img-top" alt="Samsung Galaxy Fit">
+                    <div class="card-body">
+                        <h5 class="card-title">Unisex Black Galaxy Fit Fitness Band</h5>
+                        <p class="card-text">Samsung</p>
+                        <p class="card-text">Rs 9990</p>
+                        <a href="#" class="btn btn-primary">Buy Now</a>
+                    </div>
+                </div>
+                <div class="accessory-item card">
+                    <img src="https://assets.myntassets.com/h_1440,q_100,w_1080/v1/assets/images/10122083/2019/6/24/e533a691-3908-41b0-8307-1928a37d4ec41561362162650-Samsung-Galaxy-Fit-4801561362161527-1.jpg" class="card-img-top" alt="Samsung Fitness Earbuds">
+                    <div class="card-body">
+                        <h5 class="card-title">Gear IconX Black Cord-Free Fitness Earbuds</h5>
+                        <p class="card-text">Samsung</p>
+                        <p class="card-text">Rs 13990</p>
+                        <a href="#" class="btn btn-primary">Buy Now</a>
+                    </div>
+                </div>
+                <div class="accessory-item card">
+                    <img src="https://assets.myntassets.com/h_1440,q_100,w_1080/v1/assets/images/10122083/2019/6/24/e533a691-3908-41b0-8307-1928a37d4ec41561362162650-Samsung-Galaxy-Fit-4801561362161527-1.jpg" class="card-img-top" alt="Apple AirPods">
+                    <div class="card-body">
+                        <h5 class="card-title">White 2nd Gen AirPods With Charging Case</h5>
+                        <p class="card-text">Apple</p>
+                        <p class="card-text">Rs 14999</p>
+                        <a href="#" class="btn btn-primary">Buy Now</a>
+                    </div>
+                </div>
+                <div class="accessory-item card">
+                    <img src="https://assets.myntassets.com/h_1440,q_100,w_1080/v1/assets/images/10122083/2019/6/24/e533a691-3908-41b0-8307-1928a37d4ec41561362162650-Samsung-Galaxy-Fit-4801561362161527-1.jpg" class="card-img-top" alt="Apple AirPods">
+                    <div class="card-body">
+                        <h5 class="card-title">White 2nd Gen AirPods With Charging Case</h5>
+                        <p class="card-text">Apple</p>
+                        <p class="card-text">Rs 14999</p>
+                        <a href="#" class="btn btn-primary">Buy Now</a>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-nav-btn carousel-nav-btn-next">&gt;</button>
+</div>
+<script>
+    $(document).ready(function() {
+        const $wrapper = $('.accessories-wrapper');
+        const $items = $('.accessory-item');
+        console.log($items)
+        const itemWidth = $items.first().outerWidth(true);
+        let currentPosition = 0;
+        const maxPosition = -((($items.length - 1) * itemWidth) - ($wrapper.parent().width() - itemWidth));
+
+        $('.carousel-nav-btn-next').on('click', function() {
+            if (currentPosition > maxPosition) {
+                currentPosition -= itemWidth;
+                $wrapper.css('transform', `translateX(${currentPosition}px)`);
+            }
+        });
+
+        $('.carousel-nav-btn-prev').on('click', function() {
+            if (currentPosition <0) {
+                currentPosition += itemWidth;
+                $wrapper.css('transform', `translateX(${currentPosition}px)`);
+            }
+        });
+    });
+</script>
+
