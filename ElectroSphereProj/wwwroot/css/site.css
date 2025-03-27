@@ -810,3 +810,7 @@ height: 38px;
 .carousel-nav-btn-next {
   right: 10px;
 }
+#product-partial{
+  /* position: absolute; */
+  margin-top: 30px;
+}

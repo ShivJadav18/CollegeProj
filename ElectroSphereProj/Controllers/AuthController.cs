@@ -22,10 +22,10 @@ public class AuthController : Controller{
     public IActionResult Login()
     {
         var token = Request.Cookies["jwtCookie"];
-        if (token != null)
-        {
-            return RedirectToAction("Dashboardpage", "Dashboard");
-        }
+        // if (token != null)
+        // {
+        //     return RedirectToAction("Dashboardpage", "Dashboard");
+        // }
 
         return View();
     }
