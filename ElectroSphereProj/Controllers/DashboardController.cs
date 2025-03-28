@@ -39,6 +39,12 @@ public class DashboardController : Controller
         return View(productListViewModels);
     }
 
+    public IActionResult ProductDetailView(int id){
+        Item item = _context.Items.Include(i => i.Category).FirstOrDefault(i => i.ItemId == id);
+
+        return View(item);
+    }
+
 
 
 }

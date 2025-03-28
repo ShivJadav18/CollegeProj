@@ -1,0 +1,43 @@
+@model ElectroSphereProj.Data.Item
+<div class="container">
+    <div class="row d-flex align-items-center">
+        <div class="col-md-5 me-3">
+            <div class="product-image-detail text-center rounded shadow">
+                <img src="https://assets.myntassets.com/h_1440,q_100,w_1080/v1/assets/images/10122083/2019/6/24/e533a691-3908-41b0-8307-1928a37d4ec41561362162650-Samsung-Galaxy-Fit-4801561362161527-1.jpg"
+                    class="card-img-top w-100 h-100" alt="Apple Smart Watch">
+            </div>
+            @* <div class="product-preview text-center mt-3">
+            <img src="/api/placeholder/100/100" alt="Product View 1">
+            <img src="/api/placeholder/100/100" alt="Product View 2">
+            <img src="/api/placeholder/100/100" alt="Product View 3">
+            </div> *@
+        </div>
+        <div class="col-md-6 ">
+            <h1 class="mb-3">@Model.Name</h1>
+            <h4 class="text-muted mb-4">@Model.Category.Categoryname</h4>
+            <h2 class="mb-4">Rs @Model.Rate</h2>
+
+            <h5>Description</h5>
+            <p>The New Fastrack Reflex 2.0 Activity Tracker Comes With All The Features One Could Ask For! It Comes In
+                Three Colours That You Can Use To Accentuate Your Athleisure, Casual Or Party Attire. Not Only Does It
+                Look Uber Cool In This Cool Grey & Electric Blue Accent, Further The TPU (Thermoplastic Polyurethane)
+                Strap Ensures It Gives You A Snug While Staying Light On Your Wrist! It Is A Fitness Band With
+                Smartwatch Features.</p>
+
+            @* <ul class="list-unstyled mb-4">
+            <li>• Steps, Distance And Calorie Tracker</li>
+            <li>• Sleep Tracker</li>
+            <li>• Call & SMS Alerts</li>
+            <li>• OLED Display</li>
+            <li>• 10 Days Power Reserve</li>
+            <li>• Vibration Alarm</li>
+            <li>• Sedentary Reminder</li>
+            <li>• IPX6 Water Resistant</li>
+            </ul> *@
+            <form action="/Payment/InitiatePayment">
+                <input type="hidden" name="amount" value="@Model.Rate" />
+                <button type="submit" class="btn btn-lg add-to-cart w-100">Buy</button>
+            </form>
+        </div>
+    </div>
+</div>

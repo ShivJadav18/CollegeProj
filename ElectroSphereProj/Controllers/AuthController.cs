@@ -3,9 +3,10 @@ using ElectroSphereProj.ViewModel;
 using ElectroSphereProj.Data;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
-using ElectroSphereProj.Helpers;
+// using ElectroSphereProj.Helpers;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+// using Razorpay.Api;
 
 namespace ElectroSphereProj.Controllers;
 
@@ -15,7 +16,6 @@ public class AuthController : Controller{
     
 
     public AuthController(ElectronicDataBaseContext context){
-       
         _context = context;
     }
     

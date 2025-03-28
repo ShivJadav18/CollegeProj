@@ -808,3 +808,5 @@ D:\CollegeClientSide\CollegeProj\ElectroSphereProj\obj\Debug\net7.0\refint\Elect
 D:\CollegeClientSide\CollegeProj\ElectroSphereProj\obj\Debug\net7.0\ElectroSphereProj.pdb
 D:\CollegeClientSide\CollegeProj\ElectroSphereProj\obj\Debug\net7.0\ElectroSphereProj.genruntimeconfig.cache
 D:\CollegeClientSide\CollegeProj\ElectroSphereProj\obj\Debug\net7.0\ref\ElectroSphereProj.dll
+D:\CollegeClientSide\CollegeProj\ElectroSphereProj\bin\Debug\net7.0\BouncyCastle.Crypto.dll
+D:\CollegeClientSide\CollegeProj\ElectroSphereProj\bin\Debug\net7.0\Razorpay.dll

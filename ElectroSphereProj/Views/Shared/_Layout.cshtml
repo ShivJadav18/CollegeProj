@@ -10,14 +10,15 @@
     <link rel="icon" href="https://yt3.ggpht.com/a/AGF-l78km1YyNXmF0r3-0CycCA0HLA_i6zYn_8NZEg=s900-c-k-c0xffffffff-no-rj-mo" type="image/gif" sizes="16x16">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
 </head>
 <body>
-   <header>
-        <section>
+    @await Html.PartialAsync("_Notification")
+   <header id="navbar-electro-header" class="p-0">
             <!-- MAIN CONTAINER -->
-            <div id="container">
+            <div id="navbar-electro" class="mt-0">
                 <!-- SHOP NAME -->
-                <div id="shopName"><a href="index.html"> <b>Electro</b>Sphere </a></div>
+                <div id="shopName"><a href="/Dashboard/Dashboardpage"> <b>Electro</b>Sphere </a></div>
                     <!-- COLLCETIONS ON WEBSITE -->
                     <div id="collection">
                         <div id="clothing"><a href="clothing.html"> MOBILES </a></div>
@@ -34,15 +35,12 @@
                         <a href="#"> <i class="fas fa-user-circle userIcon"></i> </a>
                     </div>
             </div>
-
-        </section>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+    <div class="container mt-2 h-100">
+        <main role="main" class="pb-3 h-100">
             @RenderBody()
         </main>
     </div>
-
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
