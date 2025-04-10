@@ -7,7 +7,10 @@
             <div class="accessories-wrapper">
                 @foreach(var product in Model){
                     <div class="accessory-item card">
-                        <img src="https://assets.myntassets.com/h_1440,q_100,w_1080/v1/assets/images/10122083/2019/6/24/e533a691-3908-41b0-8307-1928a37d4ec41561362162650-Samsung-Galaxy-Fit-4801561362161527-1.jpg" class="card-img-top" alt="Apple Smart Watch">
+                        @{
+                            string temp = !string.IsNullOrEmpty(product.productImgUrl) ?"/" + product.productImgUrl:"https://assets.myntassets.com/h_1440,q_100,w_1080/v1/assets/images/10122083/2019/6/24/e533a691-3908-41b0-8307-1928a37d4ec41561362162650-Samsung-Galaxy-Fit-4801561362161527-1.jpg";
+                        }
+                        <img src=@temp class="card-img-top" alt="Apple Smart Watch">
                         <div class="card-body">
                             <h5 class="card-title">@product.productName</h5>
                             <p class="card-text">@product.companyName</p>

@@ -854,3 +854,9 @@ height: 38px;
   background-color: #4e41bd;
   color: white;
 }
+.card-img-top{
+  height: 300px;
+}
+.sliding-img{
+  height: 500px !important;
+}
