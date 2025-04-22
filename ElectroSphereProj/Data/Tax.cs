@@ -29,5 +29,7 @@ public partial class Tax
 
     public virtual User? CreatedbyNavigation { get; set; }
 
+    public virtual ICollection<Ordertotax> Ordertotaxes { get; } = new List<Ordertotax>();
+
     public virtual User? UpdatedbyNavigation { get; set; }
 }

@@ -11,7 +11,7 @@ public partial class Modifier
 
     public decimal Rate { get; set; }
 
-    public int Unit { get; set; }
+    public int UnitId { get; set; }
 
     public int Quantity { get; set; }
 
@@ -32,6 +32,8 @@ public partial class Modifier
     public virtual ICollection<Modifiertomodifiergroup> Modifiertomodifiergroups { get; } = new List<Modifiertomodifiergroup>();
 
     public virtual ICollection<Orderitemmodifier> Orderitemmodifiers { get; } = new List<Orderitemmodifier>();
+
+    public virtual Unit Unit { get; set; } = null!;
 
     public virtual User UpdatedbyNavigation { get; set; } = null!;
 }

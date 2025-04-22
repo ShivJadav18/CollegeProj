@@ -13,6 +13,10 @@ public partial class Itemtomodifiergroup
 
     public bool? Isdeleted { get; set; }
 
+    public int? Minval { get; set; }
+
+    public int? Maxval { get; set; }
+
     public virtual Item? Item { get; set; }
 
     public virtual Modifiergroup? Modifiergroup { get; set; }

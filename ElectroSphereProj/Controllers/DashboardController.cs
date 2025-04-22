@@ -1,5 +1,6 @@
 using ElectroSphereProj.Data;
 using ElectroSphereProj.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,14 +15,14 @@ public class DashboardController : Controller
     {
         _context = context;
     }
-
+    // [Authorize]
     public IActionResult Dashboardpage()
     {
         var token = Request.Cookies["jwtCookie"];
-        // if (token == null)
-        // {
-        //     return RedirectToAction("Login", "Auth");
-        // }
+        if (token == null)
+        {
+            return RedirectToAction("Login", "Auth");
+        }
 
         List<Item> items = _context.Items.Include(i => i.Category).Where(i => i.Isdeleted == false && i.Isavailable == true).ToList();
         List<ProductListViewModel> productListViewModels = new List<ProductListViewModel>{};

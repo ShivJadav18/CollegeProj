@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Px0wY+52pxO0FzN/uEWavkT5OfeUwa43iSFdEpoYhiU=",
+  "Hash": "vU0bzf0S28E4kx14WJ/181T+qH+Bs4Zls2rEKQI4FBs=",
   "Source": "ElectroSphereProj",
   "BasePath": "_content/ElectroSphereProj",
   "Mode": "Default",
@@ -1171,6 +1171,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\LICENSE.txt"
+    },
+    {
+      "Identity": "D:\\CollegeClientSide\\CollegeProj\\ElectroSphereProj\\wwwroot\\UploadedImages\\img3_91e99ce6-0218-43e6-9b14-46e478929d79.jpg",
+      "SourceId": "ElectroSphereProj",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\CollegeClientSide\\CollegeProj\\ElectroSphereProj\\wwwroot\\",
+      "BasePath": "_content/ElectroSphereProj",
+      "RelativePath": "UploadedImages/img3_91e99ce6-0218-43e6-9b14-46e478929d79.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\UploadedImages\\img3_91e99ce6-0218-43e6-9b14-46e478929d79.jpg"
     }
   ]
 }

@@ -21,6 +21,8 @@ public partial class Modifiergroup
 
     public int? Updatedby { get; set; }
 
+    public int? Orderfield { get; set; }
+
     public virtual User? CreatedbyNavigation { get; set; }
 
     public virtual ICollection<Itemtomodifiergroup> Itemtomodifiergroups { get; } = new List<Itemtomodifiergroup>();

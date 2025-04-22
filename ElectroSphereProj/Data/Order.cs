@@ -25,6 +25,8 @@ public partial class Order
 
     public int? Updatedby { get; set; }
 
+    public string? Ordertype { get; set; }
+
     public virtual User? CreatedbyNavigation { get; set; }
 
     public virtual Customer? Customer { get; set; }
@@ -32,6 +34,8 @@ public partial class Order
     public virtual ICollection<Ordertoitem> Ordertoitems { get; } = new List<Ordertoitem>();
 
     public virtual ICollection<Ordertotable> Ordertotables { get; } = new List<Ordertotable>();
+
+    public virtual ICollection<Ordertotax> Ordertotaxes { get; } = new List<Ordertotax>();
 
     public virtual ICollection<Payment> Payments { get; } = new List<Payment>();
 

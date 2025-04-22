@@ -21,9 +21,13 @@ public partial class Section
 
     public bool? Isdeleted { get; set; }
 
+    public int? Sortingorder { get; set; }
+
     public virtual User CreatedbyNavigation { get; set; } = null!;
 
     public virtual ICollection<Table> Tables { get; } = new List<Table>();
 
     public virtual User UpdatedbyNavigation { get; set; } = null!;
+
+    public virtual ICollection<Waitingtoken> Waitingtokens { get; } = new List<Waitingtoken>();
 }

@@ -22,10 +22,10 @@ public class AuthController : Controller{
     public IActionResult Login()
     {
         var token = Request.Cookies["jwtCookie"];
-        // if (token != null)
-        // {
-        //     return RedirectToAction("Dashboardpage", "Dashboard");
-        // }
+        if (token != null)
+        {
+            return RedirectToAction("Dashboardpage", "Dashboard");
+        }
 
         return View();
     }
@@ -73,7 +73,7 @@ public class AuthController : Controller{
         }
         TempData["success"] = "You are Successfully Logged In!";
         // return RedirectToAction("Dashboardpage", "Dashboard");
-        return View();
+        return RedirectToAction("Dashboardpage","Dashboard");
     }
 
     private void SetJWTCookie(string token, int days, string name)

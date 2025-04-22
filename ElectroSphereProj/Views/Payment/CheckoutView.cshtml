@@ -1,4 +1,4 @@
-
+ <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <div id="checkout-payment">
     <form action="/Payment/CheckoutView" method="post" name="razorpayForm" id="razorpayForm">
                 <input id="razorpay_payment_id" type="hidden" name="razorpay_payment_id" />
@@ -29,11 +29,13 @@
                             </div>
                         </div>
                     </div>
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
 <script>
     var orderid = "@ViewBag.orderId"
+    var key = "@ViewBag.key"
 
     var options = {
+                "key" : key,
                  // Enter the Key ID generated from the Dashboard
                 "amount": "100", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
                 "currency": "INR",
@@ -71,7 +73,7 @@
                 backdropclose: false
             };
             var rzp = new Razorpay(options);
-            document.getElementById('rzp-button1').onclick = function (e) {
+            document.getElementById('rzp-button1').onclick = function (e) {   
                 rzp.open();
                 e.preventDefault();
             }

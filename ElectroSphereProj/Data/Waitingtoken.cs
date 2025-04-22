@@ -3,9 +3,13 @@ using System.Collections.Generic;
 
 namespace ElectroSphereProj.Data;
 
-public partial class Customer
+public partial class Waitingtoken
 {
-    public int CustomerId { get; set; }
+    public int WaitingtokenId { get; set; }
+
+    public int SectionId { get; set; }
+
+    public TimeOnly? Waitingtime { get; set; }
 
     public string Firstname { get; set; } = null!;
 
@@ -15,6 +19,10 @@ public partial class Customer
 
     public string? Email { get; set; }
 
+    public int Noofpersons { get; set; }
+
+    public bool? Isassigned { get; set; }
+
     public DateTime? Createdat { get; set; }
 
     public DateTime? Updatedat { get; set; }
@@ -23,13 +31,9 @@ public partial class Customer
 
     public int Updatedby { get; set; }
 
-    public bool? Isdeleted { get; set; }
-
-    public string? Password { get; set; }
-
     public virtual User CreatedbyNavigation { get; set; } = null!;
 
-    public virtual ICollection<Order> Orders { get; } = new List<Order>();
+    public virtual Section Section { get; set; } = null!;
 
     public virtual User UpdatedbyNavigation { get; set; } = null!;
 }

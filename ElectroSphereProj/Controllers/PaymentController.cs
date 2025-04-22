@@ -13,7 +13,7 @@ public class PaymentController : Controller
     {
         _configuration = configuration;
     }
-
+    
     public IActionResult InitiatePayment(string amount)
     {
         var key = _configuration.GetSection("Razor").GetChildren().FirstOrDefault(config => config.Key == "RazorKey").Value;
@@ -27,6 +27,7 @@ public class PaymentController : Controller
 
         Razorpay.Api.Order order = razorpayClient.Order.Create(options);
         ViewBag.orderId = order["id"].ToString();
+        ViewBag.key = key;
 
         return View("CheckoutView");
     }

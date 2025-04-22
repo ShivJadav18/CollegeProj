@@ -17,7 +17,7 @@ public partial class Item
 
     public int? Quantity { get; set; }
 
-    public bool? Isavailable { get; set; }
+    public bool Isavailable { get; set; }
 
     public int? CategoryId { get; set; }
 
@@ -40,8 +40,6 @@ public partial class Item
     public int? Createdby { get; set; }
 
     public int? Updatedby { get; set; }
-
-    public virtual ICollection<Cart> Carts { get; } = new List<Cart>();
 
     public virtual Category? Category { get; set; }
 

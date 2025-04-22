@@ -11,8 +11,6 @@ public partial class ElectronicDataBaseContext : DbContext
     {
     }
 
-    public virtual DbSet<Cart> Carts { get; set; }
-
     public virtual DbSet<Category> Categories { get; set; }
 
     public virtual DbSet<Customer> Customers { get; set; }
@@ -37,6 +35,8 @@ public partial class ElectronicDataBaseContext : DbContext
 
     public virtual DbSet<Ordertotable> Ordertotables { get; set; }
 
+    public virtual DbSet<Ordertotax> Ordertotaxes { get; set; }
+
     public virtual DbSet<Payment> Payments { get; set; }
 
     public virtual DbSet<Permission> Permissions { get; set; }
@@ -59,31 +59,10 @@ public partial class ElectronicDataBaseContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
+    public virtual DbSet<Waitingtoken> Waitingtokens { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Cart>(entity =>
-        {
-            entity.HasKey(e => e.Cartid).HasName("Cart_pkey");
-
-            entity.ToTable("Cart");
-
-            entity.Property(e => e.Cartid).HasColumnName("cartid");
-            entity.Property(e => e.Createdat)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("createdat");
-            entity.Property(e => e.Customerid).HasColumnName("customerid");
-            entity.Property(e => e.Productid).HasColumnName("productid");
-            entity.Property(e => e.Quantity).HasColumnName("quantity");
-
-            entity.HasOne(d => d.Customer).WithMany(p => p.Carts)
-                .HasForeignKey(d => d.Customerid)
-                .HasConstraintName("Cart_customerid_fkey");
-
-            entity.HasOne(d => d.Product).WithMany(p => p.Carts)
-                .HasForeignKey(d => d.Productid)
-                .HasConstraintName("Cart_productid_fkey");
-        });
-
         modelBuilder.Entity<Category>(entity =>
         {
             entity.HasKey(e => e.CategoryId).HasName("category_pkey");
@@ -100,11 +79,12 @@ public partial class ElectronicDataBaseContext : DbContext
                 .HasColumnName("createdat");
             entity.Property(e => e.Createdby).HasColumnName("createdby");
             entity.Property(e => e.Description)
-                .HasMaxLength(100)
+                .HasMaxLength(500)
                 .HasColumnName("description");
             entity.Property(e => e.Isdeleted)
                 .HasDefaultValueSql("false")
                 .HasColumnName("isdeleted");
+            entity.Property(e => e.Orderfield).HasColumnName("orderfield");
             entity.Property(e => e.Updatedat)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp without time zone")
@@ -261,6 +241,8 @@ public partial class ElectronicDataBaseContext : DbContext
                 .HasDefaultValueSql("false")
                 .HasColumnName("isdeleted");
             entity.Property(e => e.ItemId).HasColumnName("item_id");
+            entity.Property(e => e.Maxval).HasColumnName("maxval");
+            entity.Property(e => e.Minval).HasColumnName("minval");
             entity.Property(e => e.ModifiergroupId).HasColumnName("modifiergroup_id");
 
             entity.HasOne(d => d.Item).WithMany(p => p.Itemtomodifiergroups)
@@ -299,7 +281,7 @@ public partial class ElectronicDataBaseContext : DbContext
             entity.Property(e => e.Rate)
                 .HasPrecision(5, 2)
                 .HasColumnName("rate");
-            entity.Property(e => e.Unit).HasColumnName("unit");
+            entity.Property(e => e.UnitId).HasColumnName("unit_id");
             entity.Property(e => e.Updatedat)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp without time zone")
@@ -310,6 +292,11 @@ public partial class ElectronicDataBaseContext : DbContext
                 .HasForeignKey(d => d.Createdby)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("modifier_createdby_fkey");
+
+            entity.HasOne(d => d.Unit).WithMany(p => p.Modifiers)
+                .HasForeignKey(d => d.UnitId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("modifier_unit_id_fkey");
 
             entity.HasOne(d => d.UpdatedbyNavigation).WithMany(p => p.ModifierUpdatedbyNavigations)
                 .HasForeignKey(d => d.Updatedby)
@@ -338,6 +325,7 @@ public partial class ElectronicDataBaseContext : DbContext
             entity.Property(e => e.Isdeleted)
                 .HasDefaultValueSql("false")
                 .HasColumnName("isdeleted");
+            entity.Property(e => e.Orderfield).HasColumnName("orderfield");
             entity.Property(e => e.Updatedat)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp without time zone")
@@ -396,6 +384,9 @@ public partial class ElectronicDataBaseContext : DbContext
             entity.Property(e => e.Orderstatus)
                 .HasMaxLength(50)
                 .HasColumnName("orderstatus");
+            entity.Property(e => e.Ordertype)
+                .HasColumnType("character varying")
+                .HasColumnName("ordertype");
             entity.Property(e => e.Totalamount)
                 .HasPrecision(10, 2)
                 .HasColumnName("totalamount");
@@ -427,6 +418,7 @@ public partial class ElectronicDataBaseContext : DbContext
             entity.Property(e => e.OrderitemmodifierId).HasColumnName("orderitemmodifier_id");
             entity.Property(e => e.ModifierId).HasColumnName("modifier_id");
             entity.Property(e => e.OrdertoitemId).HasColumnName("ordertoitem_id");
+            entity.Property(e => e.Quantity).HasColumnName("quantity");
 
             entity.HasOne(d => d.Modifier).WithMany(p => p.Orderitemmodifiers)
                 .HasForeignKey(d => d.ModifierId)
@@ -488,6 +480,25 @@ public partial class ElectronicDataBaseContext : DbContext
                 .HasConstraintName("ordertotable_table_id_fkey");
         });
 
+        modelBuilder.Entity<Ordertotax>(entity =>
+        {
+            entity.HasKey(e => e.Ordertotaxid).HasName("ordertotax_pkey");
+
+            entity.ToTable("ordertotax");
+
+            entity.Property(e => e.Ordertotaxid).HasColumnName("ordertotaxid");
+            entity.Property(e => e.Orderid).HasColumnName("orderid");
+            entity.Property(e => e.Taxid).HasColumnName("taxid");
+
+            entity.HasOne(d => d.Order).WithMany(p => p.Ordertotaxes)
+                .HasForeignKey(d => d.Orderid)
+                .HasConstraintName("ordertotax_orderid_fkey");
+
+            entity.HasOne(d => d.Tax).WithMany(p => p.Ordertotaxes)
+                .HasForeignKey(d => d.Taxid)
+                .HasConstraintName("ordertotax_taxid_fkey");
+        });
+
         modelBuilder.Entity<Payment>(entity =>
         {
             entity.HasKey(e => e.PaymentId).HasName("payment_pkey");
@@ -522,11 +533,13 @@ public partial class ElectronicDataBaseContext : DbContext
 
         modelBuilder.Entity<Permission>(entity =>
         {
-            entity.HasKey(e => e.PermissionId).HasName("permission_pkey");
+            entity.HasKey(e => e.PermissionId).HasName("Permission_pkey");
 
             entity.ToTable("permission");
 
-            entity.Property(e => e.PermissionId).HasColumnName("permission_id");
+            entity.Property(e => e.PermissionId)
+                .HasDefaultValueSql("nextval('\"Permission_permission_id_seq\"'::regclass)")
+                .HasColumnName("permission_id");
             entity.Property(e => e.Canadd).HasColumnName("canadd");
             entity.Property(e => e.Candelete).HasColumnName("candelete");
             entity.Property(e => e.Canview).HasColumnName("canview");
@@ -548,28 +561,32 @@ public partial class ElectronicDataBaseContext : DbContext
 
             entity.HasOne(d => d.CreatedbyNavigation).WithMany(p => p.PermissionCreatedbyNavigations)
                 .HasForeignKey(d => d.Createdby)
-                .HasConstraintName("permission_createdby_fkey");
+                .HasConstraintName("Permission_createdby_fkey");
 
             entity.HasOne(d => d.Permissionfield).WithMany(p => p.Permissions)
                 .HasForeignKey(d => d.PermissionfieldId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("Permission_permissionfield_id_fkey");
 
             entity.HasOne(d => d.Role).WithMany(p => p.Permissions)
                 .HasForeignKey(d => d.RoleId)
-                .HasConstraintName("permission_role_id_fkey");
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("Permission_role_id_fkey");
 
             entity.HasOne(d => d.UpdatedbyNavigation).WithMany(p => p.PermissionUpdatedbyNavigations)
                 .HasForeignKey(d => d.Updatedby)
-                .HasConstraintName("permission_updatedby_fkey");
+                .HasConstraintName("Permission_updatedby_fkey");
         });
 
         modelBuilder.Entity<Permissionfield>(entity =>
         {
-            entity.HasKey(e => e.PermissionfieldId).HasName("permissionfield_pkey");
+            entity.HasKey(e => e.PermissionfieldId).HasName("PermissionField_pkey");
 
             entity.ToTable("permissionfield");
 
-            entity.Property(e => e.PermissionfieldId).HasColumnName("permissionfield_id");
+            entity.Property(e => e.PermissionfieldId)
+                .HasDefaultValueSql("nextval('\"PermissionField_permissionfield_id_seq\"'::regclass)")
+                .HasColumnName("permissionfield_id");
             entity.Property(e => e.Createdat)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp without time zone")
@@ -590,12 +607,12 @@ public partial class ElectronicDataBaseContext : DbContext
             entity.HasOne(d => d.CreatedbyNavigation).WithMany(p => p.PermissionfieldCreatedbyNavigations)
                 .HasForeignKey(d => d.Createdby)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("permissionfield_createdby_fkey");
+                .HasConstraintName("PermissionField_createdby_fkey");
 
             entity.HasOne(d => d.UpdatedbyNavigation).WithMany(p => p.PermissionfieldUpdatedbyNavigations)
                 .HasForeignKey(d => d.Updatedby)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("permissionfield_updatedby_fkey");
+                .HasConstraintName("PermissionField_updatedby_fkey");
         });
 
         modelBuilder.Entity<Rating>(entity =>
@@ -667,13 +684,15 @@ public partial class ElectronicDataBaseContext : DbContext
 
         modelBuilder.Entity<Role>(entity =>
         {
-            entity.HasKey(e => e.RoleId).HasName("role_pkey");
+            entity.HasKey(e => e.RoleId).HasName("roles_pkey");
 
             entity.ToTable("role");
 
-            entity.HasIndex(e => e.Name, "role_name_key").IsUnique();
+            entity.HasIndex(e => e.Name, "roles_name_key").IsUnique();
 
-            entity.Property(e => e.RoleId).HasColumnName("role_id");
+            entity.Property(e => e.RoleId)
+                .HasDefaultValueSql("nextval('roles_role_id_seq'::regclass)")
+                .HasColumnName("role_id");
             entity.Property(e => e.Createdat)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp without time zone")
@@ -711,6 +730,7 @@ public partial class ElectronicDataBaseContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .HasColumnName("name");
+            entity.Property(e => e.Sortingorder).HasColumnName("sortingorder");
             entity.Property(e => e.Updatedat)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp without time zone")
@@ -821,15 +841,13 @@ public partial class ElectronicDataBaseContext : DbContext
 
         modelBuilder.Entity<Unit>(entity =>
         {
-            entity.HasKey(e => e.UnitId).HasName("units_pkey");
+            entity.HasKey(e => e.UnitId).HasName("unit_pkey");
 
             entity.ToTable("unit");
 
-            entity.HasIndex(e => e.Shortname, "units_shortname_key").IsUnique();
+            entity.HasIndex(e => e.Shortname, "unit_shortname_key").IsUnique();
 
-            entity.Property(e => e.UnitId)
-                .HasDefaultValueSql("nextval('units_unit_id_seq'::regclass)")
-                .HasColumnName("unit_id");
+            entity.Property(e => e.UnitId).HasColumnName("unit_id");
             entity.Property(e => e.Createdat)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp without time zone")
@@ -849,11 +867,11 @@ public partial class ElectronicDataBaseContext : DbContext
 
             entity.HasOne(d => d.CreatedbyNavigation).WithMany(p => p.UnitCreatedbyNavigations)
                 .HasForeignKey(d => d.Createdby)
-                .HasConstraintName("units_createdby_fkey");
+                .HasConstraintName("unit_createdby_fkey");
 
             entity.HasOne(d => d.UpdatedbyNavigation).WithMany(p => p.UnitUpdatedbyNavigations)
                 .HasForeignKey(d => d.Updatedby)
-                .HasConstraintName("units_updatedby_fkey");
+                .HasConstraintName("unit_updatedby_fkey");
         });
 
         modelBuilder.Entity<User>(entity =>
@@ -926,6 +944,59 @@ public partial class ElectronicDataBaseContext : DbContext
             entity.HasOne(d => d.UpdatedbyNavigation).WithMany(p => p.InverseUpdatedbyNavigation)
                 .HasForeignKey(d => d.Updatedby)
                 .HasConstraintName("user_updatedby_fkey");
+        });
+
+        modelBuilder.Entity<Waitingtoken>(entity =>
+        {
+            entity.HasKey(e => e.WaitingtokenId).HasName("waitingtoken_pkey");
+
+            entity.ToTable("waitingtoken");
+
+            entity.HasIndex(e => e.Email, "waitingtoken_email_key").IsUnique();
+
+            entity.Property(e => e.WaitingtokenId).HasColumnName("waitingtoken_id");
+            entity.Property(e => e.Contactnumber)
+                .HasMaxLength(15)
+                .HasColumnName("contactnumber");
+            entity.Property(e => e.Createdat)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("createdat");
+            entity.Property(e => e.Createdby).HasColumnName("createdby");
+            entity.Property(e => e.Email)
+                .HasMaxLength(100)
+                .HasColumnName("email");
+            entity.Property(e => e.Firstname)
+                .HasMaxLength(50)
+                .HasColumnName("firstname");
+            entity.Property(e => e.Isassigned)
+                .HasDefaultValueSql("false")
+                .HasColumnName("isassigned");
+            entity.Property(e => e.Lastname)
+                .HasMaxLength(50)
+                .HasColumnName("lastname");
+            entity.Property(e => e.Noofpersons).HasColumnName("noofpersons");
+            entity.Property(e => e.SectionId).HasColumnName("section_id");
+            entity.Property(e => e.Updatedat)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("updatedat");
+            entity.Property(e => e.Updatedby).HasColumnName("updatedby");
+            entity.Property(e => e.Waitingtime).HasColumnName("waitingtime");
+
+            entity.HasOne(d => d.CreatedbyNavigation).WithMany(p => p.WaitingtokenCreatedbyNavigations)
+                .HasForeignKey(d => d.Createdby)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("waitingtoken_createdby_fkey");
+
+            entity.HasOne(d => d.Section).WithMany(p => p.Waitingtokens)
+                .HasForeignKey(d => d.SectionId)
+                .HasConstraintName("waitingtoken_section_id_fkey");
+
+            entity.HasOne(d => d.UpdatedbyNavigation).WithMany(p => p.WaitingtokenUpdatedbyNavigations)
+                .HasForeignKey(d => d.Updatedby)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("waitingtoken_updatedby_fkey");
         });
 
         OnModelCreatingPartial(modelBuilder);

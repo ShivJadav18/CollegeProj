@@ -108,4 +108,8 @@ public partial class User
     public virtual ICollection<Unit> UnitUpdatedbyNavigations { get; } = new List<Unit>();
 
     public virtual User? UpdatedbyNavigation { get; set; }
+
+    public virtual ICollection<Waitingtoken> WaitingtokenCreatedbyNavigations { get; } = new List<Waitingtoken>();
+
+    public virtual ICollection<Waitingtoken> WaitingtokenUpdatedbyNavigations { get; } = new List<Waitingtoken>();
 }
