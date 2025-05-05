@@ -4,20 +4,47 @@
      Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <script src="http://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-
-<div id="2" class="mb-2">
-    <section>
-            <div id="containerSlider">
-                <div id="slidingImage" class="rounded"> <img src="~/images/img1.jpg" alt="image1" class="sliding-img rounded shadow " > </div>
-                <div id="slidingImage" class="rounded"> <img src="~/images/img2.jpg" alt="image2" class="sliding-img rounded shadow " > </div>
-                <div id="slidingImage" class="rounded"> <img src="~/images/img3.jpg" alt="image3" class="sliding-img rounded shadow " > </div>
-                
+<header id="navbar-electro-header" class="p-0">
+            <!-- MAIN CONTAINER -->
+            <div id="navbar-electro" class="mt-0">
+                <!-- SHOP NAME -->
+                <div id="shopName"><a href="/Dashboard/Dashboardpage"> <b>Electro</b>Sphere </a></div>
+                    <!-- COLLCETIONS ON WEBSITE -->
+                    <div id="collection">
+                        <div id="clothing" data-typeid="1" class="types">MOBILES</div>
+                        <div id="accessories" data-typeid="2" class="types">TVs</div>
+                    </div>
+                    <!-- SEARCH SECTION -->
+                    <div id="search">
+                        <i class="fas fa-search search"></i>
+                        <input type="text" id="input" name="searchBox" placeholder="Search for Clothing and Accessories">
+                    </div>
+                    <!-- USER SECTION (CART AND USER ICON) -->
+                    <div id="user">
+                        <a href="cart.html"> <i class="fas fa-shopping-cart addedToCart"><div id="badge"> 0 </div></i></a>
+                        <a href="#"> <i class="fas fa-user-circle userIcon"></i> </a>
+                    </div>
             </div>
-    </section>
+    </header>
+    <div class="container mt-2 h-100">
+    <main role="main" class="pb-3 h-100">
+        <div id="2" class="mb-2">
+            <section>
+                    <div id="containerSlider">
+                        <div id="slidingImage" class="rounded"> <img src="~/images/img1.jpg" alt="image1" class="sliding-img rounded shadow " > </div>
+                        <div id="slidingImage" class="rounded"> <img src="~/images/img2.jpg" alt="image2" class="sliding-img rounded shadow " > </div>
+                        <div id="slidingImage" class="rounded"> <img src="~/images/img3.jpg" alt="image3" class="sliding-img rounded shadow " > </div>
+                        
+                    </div>
+            </section>
+        </div>
+        <div class="product-partial" id = "product-partial">
+            @Html.Partial("_Products.cshtml",Model)
+        </div>
+            
+    </main>
 </div>
-<div class="product-partial" id = "product-partial">
-    @Html.Partial("_Products.cshtml",Model)
-</div>
+
 <script>
         $(document).ready(function()
         {
@@ -29,7 +56,19 @@
             autoplay: true,
             autoplaySpeed: 2000,
             });
+        $(".types").click(function(e){
+            var typeId = parseInt($(this).data("typeid"));
+            alert(typeId)
+            $.ajax({
+                url: '/Dashboard/GetItemsByType', // Using query string parameter here
+                data: { typeId: typeId }, // Data sent to the server
+                success: function (data) {
+                    $("#product-partial").html(data);
+                }
+            });
+        })
         });
+
 </script>
 
 
