@@ -1,31 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "D:\\CollegeApp\\CollegeProj\\ElectroSphereProj\\ElectroSphereProj.csproj": {}
+    "d:\\CollegeClientSide\\CollegeProj\\ElectroSphereProj\\ElectroSphereProj.csproj": {}
   },
   "projects": {
-    "D:\\CollegeApp\\CollegeProj\\ElectroSphereProj\\ElectroSphereProj.csproj": {
+    "d:\\CollegeClientSide\\CollegeProj\\ElectroSphereProj\\ElectroSphereProj.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\CollegeApp\\CollegeProj\\ElectroSphereProj\\ElectroSphereProj.csproj",
+        "projectUniqueName": "d:\\CollegeClientSide\\CollegeProj\\ElectroSphereProj\\ElectroSphereProj.csproj",
         "projectName": "ElectroSphereProj",
-        "projectPath": "D:\\CollegeApp\\CollegeProj\\ElectroSphereProj\\ElectroSphereProj.csproj",
-        "packagesPath": "C:\\Users\\dell_\\.nuget\\packages\\",
-        "outputPath": "D:\\CollegeApp\\CollegeProj\\ElectroSphereProj\\obj\\",
+        "projectPath": "d:\\CollegeClientSide\\CollegeProj\\ElectroSphereProj\\ElectroSphereProj.csproj",
+        "packagesPath": "C:\\Users\\pce65\\.nuget\\packages\\",
+        "outputPath": "d:\\CollegeClientSide\\CollegeProj\\ElectroSphereProj\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\dell_\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\pce65\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

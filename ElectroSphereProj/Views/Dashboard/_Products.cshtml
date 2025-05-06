@@ -1,29 +1,33 @@
 @model List<ElectroSphereProj.ViewModel.ProductListViewModel>
-<script src="http://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="http://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"></script>
 
 
-    <div class="accessories-carousel position-relative">
-            <button class="carousel-nav-btn carousel-nav-btn-prev">&lt;</button>
-            <div class="accessories-wrapper">
-                @foreach(var product in Model){
-                    <div class="accessory-item card">
-                        @{
-                            string temp = !string.IsNullOrEmpty(product.productImgUrl) ?"/" + product.productImgUrl:"https://assets.myntassets.com/h_1440,q_100,w_1080/v1/assets/images/10122083/2019/6/24/e533a691-3908-41b0-8307-1928a37d4ec41561362162650-Samsung-Galaxy-Fit-4801561362161527-1.jpg";
-                        }
-                        <img src=@temp class="card-img-top" alt="Apple Smart Watch">
-                        <div class="card-body">
-                            <h5 class="card-title">@product.productName</h5>
-                            <p class="card-text">@product.companyName</p>
-                            <p class="card-text">Rs @product.productPrice</p>
-                            <a asp-action="ProductDetailView" asp-controller="Dashboard" asp-route-id="@product.producId" class="btn btn-primary buy-btn">Buy Now</a>                        
-                        </div>
-                    </div>
+<div class="accessories-carousel position-relative">
+    <button class="carousel-nav-btn carousel-nav-btn-prev">&lt;</button>
+    <div class="accessories-wrapper">
+        @foreach (var product in Model)
+        {
+            <div class="accessory-item card">
+                @{
+                    string temp = !string.IsNullOrEmpty(product.productImgUrl) ? "/" +
+                    product.productImgUrl : "https://assets.myntassets.com/h_1440,q_100,w_1080/v1/assets/images/10122083/2019/6/24/e533a691-3908-41b0-8307-1928a37d4ec41561362162650-Samsung-Galaxy-Fit-4801561362161527-1.jpg";
                 }
+                <img src=@temp class="card-img-top" alt="Apple Smart Watch">
+                <div class="card-body">
+                    <h5 class="card-title">@product.productName</h5>
+                    <p class="card-text">@product.companyName</p>
+                    <p class="card-text">Rs @product.productPrice</p>
+                    <a asp-action="ProductDetailView" asp-controller="Dashboard" asp-route-id="@product.producId"
+                        class="btn btn-primary buy-btn">Buy Now</a>
+                </div>
             </div>
-            <button class="carousel-nav-btn carousel-nav-btn-next">&gt;</button>
-        </div>
+        }
+    </div>
+    <button class="carousel-nav-btn carousel-nav-btn-next">&gt;</button>
+</div>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         const $wrapper = $('.accessories-wrapper');
         const $items = $('.accessory-item');
         console.log($items)
@@ -31,15 +35,15 @@
         let currentPosition = 0;
         const maxPosition = -((($items.length - 1) * itemWidth) - ($wrapper.parent().width() - itemWidth));
 
-        $('.carousel-nav-btn-next').on('click', function() {
+        $('.carousel-nav-btn-next').on('click', function () {
             if (currentPosition > maxPosition) {
                 currentPosition -= itemWidth;
                 $wrapper.css('transform', `translateX(${currentPosition}px)`);
             }
         });
 
-        $('.carousel-nav-btn-prev').on('click', function() {
-            if (currentPosition <0) {
+        $('.carousel-nav-btn-prev').on('click', function () {
+            if (currentPosition < 0) {
                 currentPosition += itemWidth;
                 $wrapper.css('transform', `translateX(${currentPosition}px)`);
             }

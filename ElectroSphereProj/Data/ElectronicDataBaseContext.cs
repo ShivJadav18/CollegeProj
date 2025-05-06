@@ -66,11 +66,14 @@ public partial class ElectronicDataBaseContext : DbContext
             entity.ToTable("cartdetailtable");
 
             entity.Property(e => e.Cartdetailid)
-                .ValueGeneratedNever()
+                .HasDefaultValueSql("nextval('cartdetailtable_id_seq'::regclass)")
                 .HasColumnName("cartdetailid");
             entity.Property(e => e.Cartid).HasColumnName("cartid");
             entity.Property(e => e.Customerid).HasColumnName("customerid");
             entity.Property(e => e.Itemid).HasColumnName("itemid");
+            entity.Property(e => e.Itemqun)
+                .HasDefaultValueSql("1")
+                .HasColumnName("itemqun");
 
             entity.HasOne(d => d.Cart).WithMany(p => p.Cartdetailtables)
                 .HasForeignKey(d => d.Cartid)
@@ -94,9 +97,7 @@ public partial class ElectronicDataBaseContext : DbContext
 
             entity.ToTable("carttable");
 
-            entity.Property(e => e.Cartid)
-                .ValueGeneratedNever()
-                .HasColumnName("cartid");
+            entity.Property(e => e.Cartid).HasColumnName("cartid");
             entity.Property(e => e.Customerid).HasColumnName("customerid");
 
             entity.HasOne(d => d.Customer).WithMany(p => p.Carttables)
@@ -897,6 +898,8 @@ public partial class ElectronicDataBaseContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("waitingtoken_updatedby_fkey");
         });
+        modelBuilder.HasSequence("cartdetailtable_id_seq");
+        modelBuilder.HasSequence("carttable_cartid_seq");
 
         OnModelCreatingPartial(modelBuilder);
     }

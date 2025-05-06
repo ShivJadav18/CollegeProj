@@ -1,4 +1,16 @@
 @model ElectroSphereProj.Data.Item
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="http://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"></script>
+<header id="navbar-electro-header" class="p-0">
+    <!-- MAIN CONTAINER -->
+    <div id="navbar-electro" class="mt-0">
+        <!-- SHOP NAME -->
+        <div id="shopName"><a href="/Dashboard/Dashboardpage"> <b>Electro</b>Sphere </a></div>
+    </div>
+</header>
 <div class="container">
     <div class="row d-flex align-items-center">
         <div class="col-md-5 me-3">
@@ -34,10 +46,33 @@
             <li>• Sedentary Reminder</li>
             <li>• IPX6 Water Resistant</li>
             </ul> *@
-            <form action="/Payment/InitiatePayment">
+            @* <form action="/Payment/InitiatePayment">
                 <input type="hidden" name="amount" value="@Model.Rate" />
                 <button type="submit" class="btn btn-lg add-to-cart w-100">Buy</button>
-            </form>
+            </form> *@
+            <button class="btn btn-lg add-to-cart w-100" id="addtocart" data-itemid = "@Model.ItemId">Add To Cart</button>
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function(){
+        $("#addtocart").click(function(e){
+            var itemid = $(this).data("itemid");
+
+            $.ajax({
+                url : "/Dashboard/AddToCart",
+                data : {
+                    itemid : itemid
+                },
+                success : (response) => {
+                    if(response.success){
+                        toastr.success("Item added to cart successfully.");
+                        window.location.href = "/Dashboard/Dashboardpage"
+                    }else{
+                        toastr.error(response.message);
+                    }
+                }
+            })
+        })
+    })
+</script>

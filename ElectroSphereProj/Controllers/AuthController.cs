@@ -10,15 +10,17 @@ using System.Text;
 
 namespace ElectroSphereProj.Controllers;
 
-public class AuthController : Controller{
+public class AuthController : Controller
+{
 
     private readonly ElectronicDataBaseContext _context;
-    
 
-    public AuthController(ElectronicDataBaseContext context){
+
+    public AuthController(ElectronicDataBaseContext context)
+    {
         _context = context;
     }
-    
+
     public IActionResult Login()
     {
         var token = Request.Cookies["jwtCookie"];
@@ -37,19 +39,20 @@ public class AuthController : Controller{
         {
             return View();
         }
-        Customer userobj = _context.Customers.FirstOrDefault(u => u.Email == user.Email && u.Isdeleted == false );
+        Customer userobj = _context.Customers.FirstOrDefault(u => u.Email == user.Email && u.Isdeleted == false);
 
-        if(userobj == null){
-            TempData["error"] = "Email/Password is Wrong Or This user's status is in-active or this user is deleted.";
-            return View();
-        }
-        // !BCrypt.Net.BCrypt.Verify(user.Password, userobj.Password)
-        if (userobj.Password != user.Password )
+        if (userobj == null)
         {
             TempData["error"] = "Email/Password is Wrong Or This user's status is in-active or this user is deleted.";
             return View();
         }
-        
+        // !BCrypt.Net.BCrypt.Verify(user.Password, userobj.Password)
+        if (userobj.Password != user.Password)
+        {
+            TempData["error"] = "Email/Password is Wrong Or This user's status is in-active or this user is deleted.";
+            return View();
+        }
+
 
         var claims = new[] {
                 new Claim("UserName",userobj.Firstname),
@@ -72,8 +75,8 @@ public class AuthController : Controller{
             SetJWTCookie(token, 1, "jwtCookie");
         }
         TempData["success"] = "You are Successfully Logged In!";
-        // return RedirectToAction("Dashboardpage", "Dashboard");
-        return RedirectToAction("Dashboardpage","Dashboard");
+
+        return RedirectToAction("Dashboardpage", "Dashboard");
     }
 
     private void SetJWTCookie(string token, int days, string name)

@@ -10,3 +10,8 @@ public class ProductListViewModel{
     public string productImgUrl{get;set;}
 
 }
+
+public class DashBoardView{
+    public List<ProductListViewModel> productListView{get;set;}
+    public int cartCount{get;set;}
+}

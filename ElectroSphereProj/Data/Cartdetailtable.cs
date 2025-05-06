@@ -13,6 +13,8 @@ public partial class Cartdetailtable
 
     public int Itemid { get; set; }
 
+    public int? Itemqun { get; set; }
+
     public virtual Carttable Cart { get; set; } = null!;
 
     public virtual Customer Customer { get; set; } = null!;

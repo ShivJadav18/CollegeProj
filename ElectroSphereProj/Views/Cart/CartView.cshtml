@@ -1,0 +1,51 @@
+@using ElectroSphereProj.ViewModel
+@model ElectroSphereProj.ViewModel.CartViewModel
+<header id="navbar-electro-header" class="p-0">
+    <!-- MAIN CONTAINER -->
+    <div id="navbar-electro" class="mt-0">
+        <!-- SHOP NAME -->
+        <div id="shopName"><a href="/Dashboard/Dashboardpage"> <b>Electro</b>Sphere </a></div>
+    </div>
+</header>
+<div id="cartMainContainer">
+    <h1> Checkout </h1>
+    <h3 id="totalItem"> Total Items: @Model.totalItems </h3>
+
+    <div id="cartContainer">
+        <div id="boxContainer">
+            @foreach (cartItem item in Model.cartItems)
+            {
+
+                string temp = !string.IsNullOrEmpty(item.itemImg) ? "/" +
+                item.itemImg :
+                "https://assets.myntassets.com/h_1440,q_100,w_1080/v1/assets/images/10122083/2019/6/24/e533a691-3908-41b0-8307-1928a37d4ec41561362162650-Samsung-Galaxy-Fit-4801561362161527-1.jpg";
+                <div id="box"><img src=@temp>
+                    <h3>@item.itemName × @item.itemQun</h3>
+                    <h4>Amount: Rs @item.itemPrice</h4>
+                </div>
+            }
+            @* <div id="box"><img
+            src="https://assets.myntassets.com/h_1440,q_100,w_1080/v1/assets/images/7579188/2018/11/5/08a7b230-ee8f-46c0-a945-4e835a3c01c01541402833619-United-Colors-of-Benetton-Men-Sweatshirts-1271541402833444-1.jpg">
+            <h3>Men Navy Blue Solid Sweatshirt × 1</h3>
+            <h4>Amount: Rs2599</h4>
+            </div>
+            <div id="box"><img
+            src="https://assets.myntassets.com/h_1440,q_100,w_1080/v1/assets/images/2060340/2017/9/14/11505387708574-Puma-Men-Black-Solid-Sporty-Jacket-371505387708496-1.jpg">
+            <h3>Men Black MAMGP T7 Sweat Sporty Jacket × 1</h3>
+            <h4>Amount: Rs7999</h4>
+            </div> *@
+        </div>
+        <div id="totalContainer">
+            <div id="total">
+                <h2>Total Amount</h2>
+                <h4>Amount: Rs @Model.Totalamount.ToString("F2")</h4>
+                <form action="/Payment/InitiatePayment">
+                    <input type="hidden" name="amount" value="@Model.Totalamount" />
+                   <div id="button"><button type="submit" style="color: white;">Place Order</button></div>
+                </form>
+            </div>
+        </div>
+        <!-- JS rendered code -->
+    </div>
+
+</div>
