@@ -15,8 +15,6 @@ public partial class Order
 
     public decimal? Totalamount { get; set; }
 
-    public int? Noofperson { get; set; }
-
     public DateTime? Createdat { get; set; }
 
     public DateTime? Updatedat { get; set; }

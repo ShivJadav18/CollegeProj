@@ -41,18 +41,11 @@ public class AuthController : Controller
         }
         Customer userobj = _context.Customers.FirstOrDefault(u => u.Email == user.Email && u.Isdeleted == false);
 
-        if (userobj == null)
+        if (userobj.Email == null || !BCrypt.Net.BCrypt.Verify(user.Password, userobj.Password))
         {
             TempData["error"] = "Email/Password is Wrong Or This user's status is in-active or this user is deleted.";
             return View();
         }
-        // !BCrypt.Net.BCrypt.Verify(user.Password, userobj.Password)
-        if (userobj.Password != user.Password)
-        {
-            TempData["error"] = "Email/Password is Wrong Or This user's status is in-active or this user is deleted.";
-            return View();
-        }
-
 
         var claims = new[] {
                 new Claim("UserName",userobj.Firstname),
@@ -60,12 +53,7 @@ public class AuthController : Controller
             };
 
         var token = GenerateJSONWebToken(claims);
-        // var jwtToken = _userauth.GetAuthenticate(user);
-        // if (jwtToken == "")
-        // {
-        //     TempData["error"] = "Email/Password is Wrong Or This user's status is in-active or this user is deleted.";
-        //     return View();
-        // }
+
         if (user.rememberme)
         {
             SetJWTCookie(token, 7, "jwtCookie");
@@ -77,6 +65,57 @@ public class AuthController : Controller
         TempData["success"] = "You are Successfully Logged In!";
 
         return RedirectToAction("Dashboardpage", "Dashboard");
+    }
+
+    public IActionResult SignUpPage()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public IActionResult SignUpPage(registerView newUser)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View();
+        }
+        Customer customerExist = _context.Customers.FirstOrDefault(c => c.Email == newUser.Email);
+
+        if(customerExist != null){
+            TempData["error"] = "Already customer exist with this email.";
+            return View();
+        } 
+        var customer = new Customer
+        {
+            Firstname = newUser.Firstname,
+            Lastname = newUser.Lastname,
+            Contactnumber = newUser.Contactnumber,
+            Email = newUser.Email,
+            Password = BCrypt.Net.BCrypt.HashPassword(newUser.Password),
+            Createdat = DateTime.Now,
+            Updatedat = DateTime.Now,
+            Createdby = 1,
+            Updatedby = 1
+        };
+        _context.Customers.Add(customer);
+        _context.SaveChanges();
+
+        TempData["success"] = "Successfully Registerd.";
+        return RedirectToAction("Login","Auth");
+    }
+    public IActionResult Logout()
+    {
+
+        if (Request.Cookies["jwtCookie"] != null)
+        {
+            Response.Cookies.Delete("jwtCookie", new CookieOptions
+            {
+                HttpOnly = true,
+                SameSite = SameSiteMode.Strict
+            });
+        }
+
+        return Json(new { success = true });
     }
 
     private void SetJWTCookie(string token, int days, string name)

@@ -1,0 +1,94 @@
+@model ElectroSphereProj.ViewModel.registerView
+
+@{
+    ViewData["Title"] = "Index";
+    bool valid = true;
+    Layout = "~/Views/Shared/_LayoutForLogin.cshtml";
+    if (Convert.ToBoolean(TempData["auth"]) == false)
+    {
+        valid = false;
+    }
+}
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+@* asp-route="LOGIN" method="post" *@
+<p class="message" style="color: #ffffff">Welcome!</p>
+<form class="d-flex flex-column" asp-action="SignUpPage" asp-controller="Auth" method="post" id="login-form">
+    <div class="d-flex gap-2">
+        <div class="input-group d-flex flex-column mb-3">
+            <div id="emailError" class="text-danger mt-0"></div>
+            <div class="d-flex">
+                <input type="text" id="user-Firstname" name="Firstname" asp-for="Firstname" class="form-control"
+                    placeholder="Firstname" aria-label="Firstname" aria-describedby="basic-addon1">
+            </div>
+            <span class="" style="color: #FF9A9A;" id="Firstname-validation-msg" asp-validation-for="@Model.Firstname">
+
+            </span>
+        </div>
+        <div class="input-group d-flex flex-column mb-3">
+            <div id="emailError" class="text-danger mt-0"></div>
+            <div class="d-flex">
+                <input type="text" id="user-Lastname" name="Lastname" asp-for="Lastname" class="form-control"
+                    placeholder="Lastname" aria-label="Lastname" aria-describedby="basic-addon1">
+            </div>
+            <p class="" style="color: #FF9A9A;" id="Lastname-validation-msg">
+                @Html.ValidationMessageFor(m => m.Lastname)
+            </p>
+        </div>
+
+    </div>
+    <div class="input-group d-flex flex-column mb-3">
+        <div id="emailError" class="text-danger mt-0"></div>
+        <div class="d-flex">
+            <input type="text" id="user-email" name="Email" asp-for="Email" class="form-control" placeholder="Email"
+                aria-label="Email" aria-describedby="basic-addon1">
+            <span class="input-group-text" id="basic-addon1">
+                <i class="fa fa-user" aria-hidden="true"></i>
+            </span>
+        </div>
+        <p class="" style="color: #FF9A9A;" id="email-validation-msg">
+            @Html.ValidationMessageFor(m => m.Email)
+        </p>
+    </div>
+    <div class="input-group d-flex flex-column mb-3">
+        <div id="passwordError" class="text-danger"></div>
+        <div class="d-flex">
+            <input type="password" id="user-pass" asp-for="Password" name="Password" class="form-control"
+                placeholder="Password" id="pass" aria-label="Password" aria-describedby="basic-addon1">
+            <span class="input-group-text" id="eye-icon">
+                <i class="fa fa-eye" id="eye" aria-hidden="true"></i>
+            </span>
+        </div>
+        <p class="" style="color: #FF9A9A;" id="password-validation-msg">
+            @Html.ValidationMessageFor(m => m.Password)
+        </p>
+    </div>
+    <div class="input-group d-flex flex-column mb-3">
+        <div id="passwordError" class="text-danger"></div>
+        <div class="d-flex">
+            <input type="password" id="user-Contactnumber" asp-for="Contactnumber" name="Contactnumber" class="form-control"
+                placeholder="Contactnumber" aria-label="Contactnumber" aria-describedby="basic-addon1">
+        </div>
+        <p class="" style="color: #FF9A9A;" id="Contactnumber-validation-msg">
+            @Html.ValidationMessageFor(m => m.Contactnumber)
+        </p>
+    </div>
+    <button type="submit" class="btn btn-nonprimary" style="background-color: #4267AC; color: #FFFFFF;">Submit</button>
+</form>
+
+<script>
+    $(document).ready(() => {
+        $("#eye-icon").click(function (e) {
+            if ($("#user-pass").attr("type") === "password") {
+                $("#user-pass").attr("type", "text")
+                $(this).empty();
+                $(this).append("<i class='fa fa-eye-slash' aria-hidden='true'></i>")
+            } else {
+                $("#user-pass").attr("type", "password")
+                $(this).empty();
+                $(this).append("<i class='fa fa-eye' id='eye' aria-hidden='true'></i>")
+            }
+        })
+    })
+</script>

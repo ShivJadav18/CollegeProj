@@ -7,7 +7,7 @@
     crossorigin="anonymous"></script>
 <header id="navbar-electro-header" class="p-0">
     <!-- MAIN CONTAINER -->
-    <div id="navbar-electro" class="mt-0">
+    <div id="navbar-electro" class="mt-0 d-flex align-items-center">
         <!-- SHOP NAME -->
         <div id="shopName"><a href="/Dashboard/Dashboardpage"> <b>Electro</b>Sphere </a></div>
         <!-- COLLCETIONS ON WEBSITE -->
@@ -30,6 +30,10 @@
                 </i>
             </a>
             @* <a href="#"> <i class="fas fa-user-circle userIcon"></i> </a> *@
+        </div>
+        <div id="logout" class="d-flex" aria-hidden="true" data-bs-toggle="modal"
+                                        data-bs-target="#staticBackdrop">
+            <div class="types for-point">Log Out</div>
         </div>
     </div>
 </header>
@@ -54,6 +58,21 @@
 
     </main>
 </div>
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <p>Are you sure you want to Logout?</p>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-nonsecondary  bg-secondary" data-bs-dismiss="modal"
+                    id="logout-btn">Yes</button>
+                <button type="button" class="btn btn-nonsecondary bg-secondary" data-bs-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
     $(document).ready(function () {
@@ -76,6 +95,22 @@
                     $("#product-partial").html(data);
                 }
             });
+        })
+        $("#logout-btn").click(function () {
+            $.ajax({
+                url: "/Auth/Logout",
+                success: (response) => {
+                    if (response.success) {
+                        alert("user is successfully logged out.");
+                        window.location = '/Auth/Login';
+                    } else {
+                        alert("There is a problem in logging you out.");
+                    }
+                },
+                error: (error) => {
+
+                }
+            })
         })
     });
 

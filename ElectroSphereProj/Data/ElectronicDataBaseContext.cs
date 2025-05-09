@@ -286,7 +286,6 @@ public partial class ElectronicDataBaseContext : DbContext
                 .HasColumnName("createdat");
             entity.Property(e => e.Createdby).HasColumnName("createdby");
             entity.Property(e => e.CustomerId).HasColumnName("customer_id");
-            entity.Property(e => e.Noofperson).HasColumnName("noofperson");
             entity.Property(e => e.Orderdate)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp without time zone")

@@ -10384,11 +10384,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "d:\\CollegeClientSide\\CollegeProj\\ElectroSphereProj\\ElectroSphereProj.csproj",
+      "projectUniqueName": "D:\\CollegeClientSide\\CollegeProj\\ElectroSphereProj\\ElectroSphereProj.csproj",
       "projectName": "ElectroSphereProj",
-      "projectPath": "d:\\CollegeClientSide\\CollegeProj\\ElectroSphereProj\\ElectroSphereProj.csproj",
+      "projectPath": "D:\\CollegeClientSide\\CollegeProj\\ElectroSphereProj\\ElectroSphereProj.csproj",
       "packagesPath": "C:\\Users\\pce65\\.nuget\\packages\\",
-      "outputPath": "d:\\CollegeClientSide\\CollegeProj\\ElectroSphereProj\\obj\\",
+      "outputPath": "D:\\CollegeClientSide\\CollegeProj\\ElectroSphereProj\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\pce65\\AppData\\Roaming\\NuGet\\NuGet.Config"
