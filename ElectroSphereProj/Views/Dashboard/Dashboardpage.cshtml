@@ -19,20 +19,22 @@
         </div>
         <!-- SEARCH SECTION -->
         <div id="search">
-            <i class="fas fa-search search"></i>
-            <input type="text" id="input" name="searchBox" placeholder="Search for Clothing and Accessories">
+            <i class="fa fa-search search"></i>
+            <input type="text" id="search-item" name="searchBox" placeholder="Search for Items.">
         </div>
         <!-- USER SECTION (CART AND USER ICON) -->
         <div id="user">
-            <a href="/Cart/CartView">
-                <i class="addedToCart">
-                    <div id="badge"> @Model.cartCount </div>
-                </i>
+            <a href="/Cart/CartView" class="text-decoration-none">
+                <div class="d-flex align-items-center gap-1">
+                    <span class="rounded-circle d-inline-block text-center" style="background-color: brown; height: 18px; width: 18px;position :absolute; right: 200px; bottom: 45px;">@Model.cartCount</span>
+                    <i class="fa fa-shopping-cart">
+                    </i>
+                </div>
+
             </a>
             @* <a href="#"> <i class="fas fa-user-circle userIcon"></i> </a> *@
         </div>
-        <div id="logout" class="d-flex" aria-hidden="true" data-bs-toggle="modal"
-                                        data-bs-target="#staticBackdrop">
+        <div id="logout" class="d-flex" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
             <div class="types for-point">Log Out</div>
         </div>
     </div>
@@ -96,6 +98,17 @@
                 }
             });
         })
+        $("#search-item").on("input", function (e) {
+            var search = $(this).val();
+            $.ajax({
+                url: '/Dashboard/GetItemsBySearch', // Using query string parameter here
+                data: { searchVal: search }, // Data sent to the server
+                success: function (data) {
+                    $("#product-partial").html(data);
+                }
+            });
+        })
+
         $("#logout-btn").click(function () {
             $.ajax({
                 url: "/Auth/Logout",

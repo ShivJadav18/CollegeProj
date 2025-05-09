@@ -5,6 +5,7 @@ using ElectroSphereProj.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Org.BouncyCastle.Asn1.Iana;
 
 namespace ElectroSphereProj.Controllers;
@@ -107,6 +108,28 @@ public class DashboardController : Controller
         return PartialView("_Products", productListViewModels);
     }
 
+    public async Task<IActionResult> GetItemsBySearch(string searchVal){
+        var items = await _context.Items
+                                  .Include(item => item.Type)
+                                  .Include(i => i.Category)// Eager load the related Typetable
+                                  .Where(item => (searchVal.IsNullOrEmpty() || item.Name.ToLower().Trim().Contains(searchVal.Trim().ToLower())) &&
+                                                 item.Isdeleted != true && // Example: Only show non-deleted items
+                                                 item.Isavailable == true) // Example: Only show available items
+                                  .ToListAsync(); // Execute the query asynchronously
+        var productListViewModels = new List<ProductListViewModel> { };
+        foreach (Item item in items)
+        {
+            ProductListViewModel productListViewModel = new ProductListViewModel { };
+            productListViewModel.producId = item.ItemId;
+            productListViewModel.productDescription = item.Description;
+            productListViewModel.productImgUrl = item.Imageurl;
+            productListViewModel.productName = item.Name;
+            productListViewModel.productPrice = (decimal)item.Rate;
+            productListViewModel.companyName = item.Category.Categoryname;
+            productListViewModels.Add(productListViewModel);
+        }
+        return PartialView("_Products",productListViewModels);
+    }
     public IActionResult AddToCart(int itemid)
     {
         try

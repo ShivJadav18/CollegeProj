@@ -539,9 +539,12 @@ button {
 .orange {
   color: orange;
 }
-
+.fa-shopping-cart::before{
+  height: 20px;
+  width: 30px;
+}
 #badge {
-  position: absolute;
+  /* position: absolute; */
   background-color: rgb(255, 30, 30);
   color: white;
   border-radius: 50%;
@@ -626,7 +629,7 @@ button {
   font-size: 45px;
 }
 
-#input {
+#search-item {
   width: 35em;
   height: 3em;
   padding: 2px 50px;
@@ -635,11 +638,11 @@ button {
   border-radius: 5px;
 }
 
-#input::placeholder {
+#search-item::placeholder {
   font-weight: bold;
 }
 
-#input:focus {
+#search-item:focus {
   outline: none;
 }
 

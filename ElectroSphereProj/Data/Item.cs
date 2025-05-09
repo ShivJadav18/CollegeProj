@@ -11,8 +11,6 @@ public partial class Item
 
     public string? Description { get; set; }
 
-    public string? Itemtype { get; set; }
-
     public decimal? Rate { get; set; }
 
     public int? Quantity { get; set; }

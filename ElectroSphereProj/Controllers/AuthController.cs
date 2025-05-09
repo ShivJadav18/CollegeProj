@@ -84,7 +84,8 @@ public class AuthController : Controller
         if(customerExist != null){
             TempData["error"] = "Already customer exist with this email.";
             return View();
-        } 
+        }
+
         var customer = new Customer
         {
             Firstname = newUser.Firstname,
@@ -97,6 +98,7 @@ public class AuthController : Controller
             Createdby = 1,
             Updatedby = 1
         };
+        
         _context.Customers.Add(customer);
         _context.SaveChanges();
 

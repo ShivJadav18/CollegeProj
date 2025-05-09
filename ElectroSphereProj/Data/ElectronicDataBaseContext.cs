@@ -233,9 +233,6 @@ public partial class ElectronicDataBaseContext : DbContext
             entity.Property(e => e.Isdeleted)
                 .HasDefaultValueSql("false")
                 .HasColumnName("isdeleted");
-            entity.Property(e => e.Itemtype)
-                .HasMaxLength(50)
-                .HasColumnName("itemtype");
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .HasColumnName("name");
